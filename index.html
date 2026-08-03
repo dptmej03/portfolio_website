@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esther Kim — Data Analyst</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<style>
+@font-face {
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2') format('woff2-variations');
+  font-weight: 45 920;
+}
+
+:root{
+  --bg:#FBF3EC;
+  --bg-soft:#FFF9F4;
+  --surface:#FFFFFF;
+  --card:#FFF1E4;
+  --text:#3B2A22;
+  --text-soft:#8A7568;
+  --line: rgba(59,42,34,0.12);
+  --peach:#F3B79A;
+  --rose:#E38B72;
+  --deep:#9C5B44;
+  --cream:#FCE8D8;
+  --grad-heading: linear-gradient(180deg, #B9755C 0%, #E9A17F 55%, #F6D2B0 100%);
+  --grad-btn: linear-gradient(120deg, #F7D9BB 0%, #EFA483 35%, #DD7D5D 70%, #A2543C 100%);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--bg);}
+body{
+  font-family:'Pretendard','Noto Sans KR',sans-serif;
+  color:var(--text);
+  overflow-x:clip;
+  -webkit-font-smoothing:antialiased;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+::selection{background:var(--peach);color:#fff;}
+
+.wrap{overflow-x:clip;}
+
+.heading-grad{
+  background: var(--grad-heading);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  color:transparent;
+}
+
+.section-title{
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:-0.02em;
+  line-height:0.95;
+  font-size:clamp(2.6rem, 9vw, 6.5rem);
+  text-align:center;
+}
+
+.container{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 24px;
+}
+
+/* reveal on scroll */
+.reveal{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .8s cubic-bezier(.25,.1,.25,1), transform .8s cubic-bezier(.25,.1,.25,1);
+}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+.reveal-l{transform:translateX(-50px);}
+.reveal-l.in-view{transform:translateX(0);}
+.reveal-r{transform:translateX(50px);}
+.reveal-r.in-view{transform:translateX(0);}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px clamp(20px,5vw,56px);
+  transition: background .3s ease, box-shadow .3s ease, padding .3s ease;
+}
+.navbar.scrolled{
+  background:rgba(251,243,236,0.85);
+  backdrop-filter:blur(14px);
+  box-shadow:0 2px 24px rgba(59,42,34,0.06);
+  padding-top:12px;padding-bottom:12px;
+}
+.logo{
+  font-weight:900;font-size:1.25rem;letter-spacing:-0.01em;
+  color:var(--deep);
+}
+.nav-links{
+  display:flex;gap:clamp(18px,3vw,42px);
+}
+.nav-links a{
+  font-size:0.92rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--text);opacity:0.75;transition:opacity .2s;
+}
+.nav-links a:hover{opacity:1;color:var(--rose);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;color:var(--deep);}
+
+@media (max-width:760px){
+  .nav-links{
+    position:fixed;inset:0 0 0 auto;width:70%;height:100vh;
+    background:var(--bg-soft);flex-direction:column;justify-content:center;align-items:flex-start;
+    padding:0 40px;gap:28px;transform:translateX(100%);transition:transform .35s ease;
+    box-shadow:-10px 0 40px rgba(0,0,0,0.08);
+  }
+  .nav-links.open{transform:translateX(0);}
+  .nav-toggle{display:block;}
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  position:relative;
+  background:
+    radial-gradient(60% 50% at 82% 18%, rgba(243,183,154,0.55) 0%, rgba(243,183,154,0) 70%),
+    radial-gradient(55% 45% at 12% 85%, rgba(228,163,131,0.35) 0%, rgba(228,163,131,0) 70%),
+    var(--bg);
+  overflow:clip;
+}
+.hero-inner{
+  max-width:1280px;margin:0 auto;width:100%;
+  padding:130px clamp(20px,5vw,56px) 0;
+  position:relative;
+  display:flex;flex-direction:column;
+  flex:1;
+  text-align:center;
+}
+.eyebrow{
+  font-size:0.85rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--rose);font-weight:700;margin-bottom:10px;
+}
+.hero-heading{
+  font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:0.92;
+  font-size:clamp(2.2rem, 7.4vw, 5.4rem);
+  white-space:nowrap;
+  position:relative;z-index:1;
+}
+.hero-portrait-zone{
+  align-self:center;
+  width:clamp(280px, 30vw, 400px);
+  margin:-16px auto 0;
+  position:relative;
+  z-index:2;
+}
+.portrait-frame{
+  position:relative;
+  width:100%;
+  aspect-ratio:1/0.98;
+  will-change:transform;
+  transition:transform .5s cubic-bezier(.25,.1,.25,1);
+  -webkit-mask-image:radial-gradient(ellipse 60% 58% at 50% 34%, black 55%, transparent 100%);
+  mask-image:radial-gradient(ellipse 60% 58% at 50% 34%, black 55%, transparent 100%);
+}
+.portrait-frame img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:50% 3%;
+  filter:drop-shadow(0 20px 40px rgba(156,91,68,0.25));
+}
+
+.hero-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding:24px 0 56px;
+  margin-top:auto;
+  gap:20px;flex-wrap:wrap;
+  text-align:left;
+}
+.hero-caption{
+  max-width:260px;
+  font-size:clamp(0.78rem, 1.3vw, 0.95rem);
+  color:var(--text-soft);font-weight:500;line-height:1.6;
+}
+.scroll-hint{
+  display:flex;align-items:center;gap:10px;
+  font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--text-soft);font-weight:600;
+}
+.scroll-line{width:1px;height:40px;background:linear-gradient(var(--rose),transparent);animation:scrolldown 1.8s infinite;}
+@keyframes scrolldown{0%{opacity:0;}30%{opacity:1;}100%{opacity:0;transform:translateY(10px);}}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  border-radius:999px;
+  font-weight:700;text-transform:uppercase;letter-spacing:0.12em;
+  cursor:pointer;border:none;transition:transform .25s ease, box-shadow .25s ease;
+  white-space:nowrap;
+}
+.btn:hover{transform:translateY(-3px);}
+.btn-primary{
+  background:var(--grad-btn);
+  color:#fff;
+  padding:16px 34px;font-size:0.85rem;
+  box-shadow:0 10px 26px rgba(198,111,79,0.4), inset 0 0 0 2px rgba(255,255,255,0.35);
+}
+.btn-primary:hover{box-shadow:0 16px 34px rgba(198,111,79,0.5), inset 0 0 0 2px rgba(255,255,255,0.5);}
+.btn-ghost{
+  background:transparent;
+  border:2px solid var(--deep);
+  color:var(--deep);
+  padding:14px 30px;font-size:0.82rem;
+}
+.btn-ghost:hover{background:rgba(156,91,68,0.08);}
+
+/* ---------- ABOUT ---------- */
+.about{
+  padding:120px 0 100px;
+  background:var(--bg);
+}
+.about-grid{
+  display:grid;grid-template-columns:0.85fr 1.15fr;gap:60px;
+  margin-top:64px;align-items:start;
+}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr;}}
+
+.about-photo{
+  position:relative;border-radius:32px;overflow:hidden;
+  box-shadow:0 30px 60px rgba(156,91,68,0.2);
+}
+.about-photo img{width:100%;display:block;}
+
+.about-col-left{display:flex;flex-direction:column;gap:20px;}
+.profile-list{background:var(--card);border-radius:28px;padding:26px 28px;border:1px solid var(--line);}
+
+.social-row{display:flex;gap:10px;flex-wrap:wrap;}
+.social-chip{
+  display:flex;align-items:center;gap:8px;
+  border:1px solid var(--line);border-radius:999px;padding:10px 18px;
+  font-size:0.82rem;font-weight:700;background:var(--surface);
+  transition:all .2s ease;
+}
+.social-chip:hover{background:var(--deep);color:#fff;border-color:var(--deep);transform:translateY(-2px);}
+
+/* ---------- SKILLS ---------- */
+.skills{
+  padding:100px 0;
+  background:var(--surface);
+  border-radius:56px;
+}
+.skill-cols{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:60px;
+}
+@media(max-width:860px){.skill-cols{grid-template-columns:1fr;}}
+.skill-card{
+  background:var(--card);
+  border-radius:28px;padding:32px 26px;
+  border:1px solid var(--line);
+}
+.skill-card h3{
+  font-size:1.05rem;font-weight:800;text-transform:uppercase;letter-spacing:0.04em;
+  color:var(--deep);margin-bottom:20px;
+}
+.tag-list{display:flex;flex-wrap:wrap;gap:10px;}
+.tag{
+  background:var(--surface);border:1px solid var(--line);border-radius:999px;
+  padding:8px 16px;font-size:0.85rem;font-weight:600;color:var(--text);
+}
+
+/* ---------- PROJECTS ---------- */
+.projects{padding:120px 0;background:var(--bg);}
+.project-list{margin-top:60px;display:flex;flex-direction:column;gap:26px;}
+.project-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:36px;
+  padding:clamp(22px,3.5vw,44px);
+  display:grid;grid-template-columns:90px 1fr;gap:28px;
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  cursor:pointer;
+}
+.project-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 26px 50px rgba(156,91,68,0.18);
+  border-color:var(--peach);
+}
+@media(max-width:640px){.project-card{grid-template-columns:1fr;}}
+.project-num{
+  font-weight:900;font-size:clamp(2rem,5vw,3.4rem);color:var(--peach);line-height:1;
+}
+.project-top{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.project-name{font-size:clamp(1.2rem,2.4vw,1.6rem);font-weight:800;letter-spacing:-0.01em;}
+.project-meta{font-size:0.78rem;color:var(--text-soft);font-weight:600;margin-top:4px;}
+.project-type{
+  font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+  background:var(--cream);color:var(--deep);border-radius:999px;padding:6px 14px;white-space:nowrap;
+}
+.project-desc{color:var(--text-soft);font-size:0.95rem;line-height:1.65;margin-bottom:16px;max-width:720px;}
+.project-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.project-tags span{
+  font-size:0.75rem;font-weight:700;background:var(--bg);border:1px solid var(--line);
+  border-radius:8px;padding:5px 10px;color:var(--deep);
+}
+.project-link{
+  font-size:0.8rem;font-weight:700;color:var(--rose);display:inline-flex;align-items:center;gap:6px;
+}
+.project-link:hover{text-decoration:underline;}
+.project-more{font-size:0.8rem;font-weight:700;color:var(--deep);opacity:0.6;}
+
+/* ---------- PROJECT MODAL ---------- */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(59,42,34,0.55);
+  backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+}
+.modal-overlay.open{opacity:1;pointer-events:auto;}
+.modal-box{
+  background:var(--bg-soft);
+  border-radius:36px;
+  max-width:680px;width:100%;
+  max-height:86vh;overflow-y:auto;
+  padding:clamp(28px,4vw,48px);
+  position:relative;
+  transform:translateY(24px) scale(0.98);
+  transition:transform .35s cubic-bezier(.25,.1,.25,1);
+  box-shadow:0 40px 80px rgba(59,42,34,0.35);
+}
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
+.modal-close{
+  position:absolute;top:20px;right:20px;
+  width:38px;height:38px;border-radius:50%;
+  background:var(--surface);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--deep);
+  transition:background .2s ease;
+}
+.modal-close:hover{background:var(--card);}
+.modal-num{font-weight:900;font-size:2rem;color:var(--peach);line-height:1;margin-bottom:6px;}
+.modal-title{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:800;letter-spacing:-0.01em;margin-bottom:8px;padding-right:40px;}
+.modal-meta{font-size:0.8rem;color:var(--text-soft);font-weight:600;margin-bottom:18px;}
+.modal-type{
+  display:inline-block;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
+  background:var(--cream);color:var(--deep);border-radius:999px;padding:5px 14px;margin-bottom:18px;
+}
+.modal-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.modal-tags span{
+  font-size:0.75rem;font-weight:700;background:var(--card);border:1px solid var(--line);
+  border-radius:8px;padding:5px 10px;color:var(--deep);
+}
+.modal-section{margin-bottom:20px;}
+.modal-section h4{
+  font-size:0.75rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;
+  color:var(--rose);margin-bottom:8px;
+}
+.modal-section p{font-size:0.92rem;line-height:1.7;color:var(--text);}
+.modal-section ul{display:flex;flex-direction:column;gap:6px;}
+.modal-section ul li{
+  font-size:0.92rem;line-height:1.6;color:var(--text);
+  padding-left:16px;position:relative;
+}
+.modal-section ul li::before{content:'·';position:absolute;left:2px;color:var(--rose);font-weight:900;}
+.modal-link{
+  margin-top:8px;display:inline-flex;align-items:center;gap:6px;
+  font-size:0.85rem;font-weight:700;color:#fff;
+  background:var(--grad-btn);border-radius:999px;padding:12px 26px;
+}
+
+/* ---------- RESUME (embedded in About) ---------- */
+.resume-inline h3.resume-label{
+  font-size:0.8rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--rose);margin-bottom:20px;
+}
+.resume-grid{display:flex;flex-direction:column;gap:20px;}
+.resume-block{background:var(--card);border-radius:28px;padding:26px 28px;border:1px solid var(--line);}
+.resume-block h3{
+  font-size:1rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--deep);
+  margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--peach);
+}
+.resume-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px dashed var(--line);}
+.resume-item:last-child{border-bottom:none;}
+.resume-item .date{
+  flex:0 0 auto;font-size:0.75rem;font-weight:700;color:var(--rose);white-space:nowrap;min-width:96px;
+}
+.resume-item .desc{font-size:0.9rem;font-weight:600;color:var(--text);line-height:1.5;}
+.resume-item .desc small{display:block;font-weight:400;color:var(--text-soft);margin-top:2px;}
+
+/* ---------- CONTACT ---------- */
+.contact{
+  padding:130px 0 90px;
+  text-align:center;
+  background:
+    radial-gradient(60% 60% at 50% 0%, rgba(243,183,154,0.5), rgba(243,183,154,0) 70%),
+    var(--bg);
+}
+.contact-panel{
+  margin-top:44px;
+  background:var(--grad-btn);
+  border-radius:40px;
+  padding:clamp(40px,6vw,80px) clamp(24px,6vw,60px);
+  color:#fff;
+  box-shadow:0 30px 60px rgba(198,111,79,0.35);
+}
+.contact-panel p{font-size:clamp(1rem,2vw,1.3rem);font-weight:500;max-width:560px;margin:0 auto 34px;opacity:0.95;}
+.contact-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.contact-buttons .btn-ghost{border-color:#fff;color:#fff;}
+.contact-buttons .btn-ghost:hover{background:rgba(255,255,255,0.15);}
+.contact-info{margin-top:34px;display:flex;gap:28px;justify-content:center;flex-wrap:wrap;font-size:0.85rem;font-weight:600;opacity:0.9;}
+
+footer{
+  text-align:center;padding:40px 20px;color:var(--text-soft);font-size:0.8rem;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="navbar" id="navbar">
+    <div class="logo">Esther<span class="heading-grad">.</span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#skills" class="nav-link">Skill</a></li>
+      <li><a href="#projects" class="nav-link">Project</a></li>
+      <li><a href="#resume" class="nav-link">Resume</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="eyebrow reveal">Data Analyst Portfolio</div>
+      <div style="overflow:hidden;">
+        <h1 class="hero-heading heading-grad reveal">Hi, i&apos;m esther</h1>
+      </div>
+
+      <div class="hero-portrait-zone">
+        <div class="portrait-frame" id="portrait">
+          <img src="my character.png" alt="Esther Kim portrait">
+        </div>
+      </div>
+
+      <div class="hero-bottom">
+        <p class="hero-caption reveal">이미지, 오디오 등 다양한 데이터를 다뤄본 경험을 바탕으로 문제를 발견하고 근거를 만드는 데이터 분석가입니다.</p>
+        <a href="#contact" class="btn btn-primary">Contact Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2 class="section-title heading-grad reveal">About me</h2>
+      <div class="about-grid">
+        <div class="about-col-left">
+          <div class="about-photo reveal reveal-l">
+            <img src="my character.png" alt="Esther Kim">
+          </div>
+          <div class="profile-list reveal reveal-l">
+            <div class="resume-item"><div class="date">Department</div><div class="desc">경영학과 · 빅데이터응용학과</div></div>
+            <div class="resume-item"><div class="date">University</div><div class="desc">한남대학교 (2022.03~)</div></div>
+            <div class="resume-item"><div class="date">GPA</div><div class="desc">4.43 / 4.5</div></div>
+            <div class="resume-item"><div class="date">Location</div><div class="desc">대전광역시 서구 둔산동</div></div>
+          </div>
+          <div class="social-row reveal reveal-l">
+            <a class="social-chip" href="https://github.com/dptmej03" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="social-chip" href="https://velog.io/@dptmej/posts" target="_blank" rel="noopener">Velog ↗</a>
+            <a class="social-chip" href="https://www.linkedin.com/in/esther-kim-91a7743a9/" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a class="social-chip" href="mailto:estherkim610@naver.com">Email ↗</a>
+          </div>
+        </div>
+
+        <div class="resume-inline reveal reveal-r" id="resume">
+          <h3 class="resume-label">Resume</h3>
+          <div class="resume-grid">
+            <div class="resume-block">
+              <h3>학력</h3>
+              <div class="resume-item"><div class="date">2022.03~</div><div class="desc">한남대학교 재학<small>경영학과 · 빅데이터응용학과 · GPA 4.43/4.5</small></div></div>
+              <div class="resume-item"><div class="date">2019.03–2022.02</div><div class="desc">대전 둔산여자고등학교</div></div>
+            </div>
+            <div class="resume-block">
+              <h3>자격증</h3>
+              <div class="resume-item"><div class="date">2026.06</div><div class="desc">SQLD 개발자 (SQLD)</div></div>
+              <div class="resume-item"><div class="date">2025.08</div><div class="desc">한국사능력검정시험</div></div>
+              <div class="resume-item"><div class="date">2025.03</div><div class="desc">TOEIC 850</div></div>
+              <div class="resume-item"><div class="date">2024.12</div><div class="desc">사회조사분석사 2급</div></div>
+              <div class="resume-item"><div class="date">2024.11</div><div class="desc">데이터분석 준전문가 (ADsP)</div></div>
+            </div>
+            <div class="resume-block">
+              <h3>경력</h3>
+              <div class="resume-item"><div class="date">2025.09–2026.02</div><div class="desc">한국노동연구원 근로장학생<small>전자도서관 서지 수정 및 서지 정보 입력, 정책자료 요약 추출 자동화</small></div></div>
+              <div class="resume-item"><div class="date">2024.06–2025.01</div><div class="desc">투썸플레이스 대전법원점<small>음료 제조 및 고객 서비스, 매장정리, 발주</small></div></div>
+              <div class="resume-item"><div class="date">2022.01–2024.01</div><div class="desc">투썸플레이스 월평본점<small>음료 제조 및 고객 서비스, 매장 정리</small></div></div>
+            </div>
+            <div class="resume-block">
+              <h3>장학금 &amp; 활동</h3>
+              <div class="resume-item"><div class="date">국가우수</div><div class="desc">인문 100년 장학금<small>한국장학재단 국가우수장학금</small></div></div>
+              <div class="resume-item"><div class="date">활동</div><div class="desc">데이터안심구역 서포터즈 '가디언즈오브데이터' 2기<small>SNS 콘텐츠 제작</small></div></div>
+              <div class="resume-item"><div class="date">활동</div><div class="desc">미래내일일경험 우체국쇼핑<small>마켓리서치를 통한 신규 인기 상품 발굴, 자동화 도구 제작</small></div></div>
+              <div class="resume-item"><div class="date">봉사</div><div class="desc">UCLG 대전시 세계지방정부연합 총회 봉사 · 늘평안데이케어센터 디지털 인지교육 훈련 봉사</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="container">
+    <div class="skills" id="skills">
+      <h2 class="section-title reveal" style="color:var(--deep)">Skills</h2>
+      <div class="container">
+        <div class="skill-cols">
+          <div class="skill-card reveal">
+            <h3>Programming</h3>
+            <div class="tag-list">
+              <span class="tag">Python</span><span class="tag">R</span><span class="tag">MySQL</span>
+            </div>
+          </div>
+          <div class="skill-card reveal" style="transition-delay:.1s">
+            <h3>Libraries</h3>
+            <div class="tag-list">
+              <span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Librosa</span>
+              <span class="tag">OpenCV</span><span class="tag">ggplot2</span><span class="tag">dplyr</span><span class="tag">Matplotlib</span>
+            </div>
+          </div>
+          <div class="skill-card reveal" style="transition-delay:.2s">
+            <h3>Tools &amp; Platforms</h3>
+            <div class="tag-list">
+              <span class="tag">VS Code</span><span class="tag">Google Colab</span><span class="tag">Git &amp; GitHub</span>
+              <span class="tag">Railway</span><span class="tag">Vercel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <h2 class="section-title heading-grad reveal">Project</h2>
+      <div class="project-list">
+
+        <div class="project-card reveal" data-project="0">
+          <div class="project-num">01</div>
+          <div>
+            <div class="project-top">
+              <div>
+                <div class="project-name">기상 데이터를 활용한 서울 따릉이 이용량 예측</div>
+                <div class="project-meta">2025.11.01 – 2025.12.05 · 팀 프로젝트(4인) · 모델링 및 분석 담당</div>
+              </div>
+              <div class="project-type">Team</div>
+            </div>
+            <p class="project-desc">2020–2024년 기상 데이터를 활용해 회귀 분석 기반으로 서울 공공자전거 '따릉이' 이용량을 예측. 시간적 파생 변수(계절·공휴일 등)를 추가해 설명력을 54%에서 78%까지 끌어올렸습니다.</p>
+            <div class="project-tags"><span>R</span><span>CSV</span><span>Linear Regression</span></div>
+            <span class="project-more">자세히 보기 →</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-project="1">
+          <div class="project-num">02</div>
+          <div>
+            <div class="project-top">
+              <div>
+                <div class="project-name">오디오 특성을 활용한 층간소음 분류</div>
+                <div class="project-meta">2025.11.24 – 2025.12.22 · 팀 프로젝트(4인) · 모델링 및 분석 담당</div>
+              </div>
+              <div class="project-type">Team</div>
+            </div>
+            <p class="project-desc">AI-Hub 생활환경 소음 데이터를 Librosa로 특징 추출 후 Random Forest·XGBoost로 8종의 층간소음을 분류. 충격 감쇠 기반 파생 변수(decay_mean 등)를 설계해 모델 성능을 개선했습니다.</p>
+            <div class="project-tags"><span>Python</span><span>Audio</span><span>XGBoost</span><span>Random Forest</span></div>
+            <span class="project-more">자세히 보기 →</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-project="2">
+          <div class="project-num">03</div>
+          <div>
+            <div class="project-top">
+              <div>
+                <div class="project-name">YOLO Pose &amp; Mediapipe 기반 실시간 요가 자세 교정</div>
+                <div class="project-meta">2025.11.15 – 2025.12.22 · 개인 프로젝트 · 라벨링 및 모델 학습, 시스템 구현</div>
+              </div>
+              <div class="project-type">Solo</div>
+            </div>
+            <p class="project-desc">YOLOv11 Pose와 MediaPipe Landmark를 결합해 웹캠 기반 실시간 요가 자세(견상자세) 인식 및 교정 시스템을 구현. Roboflow로 직접 키포인트를 라벨링하며 데이터 품질의 중요성을 체감했습니다.</p>
+            <div class="project-tags"><span>Python</span><span>Image</span><span>YOLO</span><span>Roboflow</span></div>
+            <span class="project-more">자세히 보기 →</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-project="3">
+          <div class="project-num">04</div>
+          <div>
+            <div class="project-top">
+              <div>
+                <div class="project-name">제주도 응급의료체계 수요·공급 불균형 원인 분석</div>
+                <div class="project-meta">2026.06.01 – 2026.06.22 · 개인 프로젝트 · 데이터 전처리 및 시각화</div>
+              </div>
+              <div class="project-type">Solo</div>
+            </div>
+            <p class="project-desc">공공데이터를 활용해 제주도 응급의료 수요·공급 불균형의 원인을 가설 기반으로 검증하고, 데이터 시각화를 통해 정책적 개선 방안을 도출했습니다.</p>
+            <div class="project-tags"><span>R</span><span>CSV</span><span>Visualization</span></div>
+            <span class="project-more">자세히 보기 →</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-project="4">
+          <div class="project-num">05</div>
+          <div>
+            <div class="project-top">
+              <div>
+                <div class="project-name">뽀모도로 타이머 제작</div>
+                <div class="project-meta">2026.01 · 개인 프로젝트 · 기획, 구현, 배포</div>
+              </div>
+              <div class="project-type">Solo</div>
+            </div>
+            <p class="project-desc">항상 화면 최상단에 떠 있는 미니 뽀모도로 타이머 + 할일 노트 데스크탑 위젯을 AI 바이브 코딩으로 직접 기획·구현·배포했습니다.</p>
+            <div class="project-tags"><span>Vibe Coding</span><span>Claude Code</span></div>
+            <span class="project-more">자세히 보기 →</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-project="5">
+          <div class="project-num">06</div>
+          <div>
+            <div class="project-top">
+              <div>
+                <div class="project-name">Let's go zip — 콘텐츠 제작 팀 프로젝트</div>
+                <div class="project-meta">팀 프로젝트 · 콘텐츠 기획 및 제작</div>
+              </div>
+              <div class="project-type">Team</div>
+            </div>
+            <p class="project-desc">콘텐츠 기획 및 제작을 중심으로 진행한 팀 프로젝트입니다.</p>
+            <div class="project-tags"><span>Contents Create</span></div>
+            <span class="project-more">자세히 보기 →</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title heading-grad reveal">Let's talk</h2>
+      <div class="contact-panel reveal">
+        <p>새로운 데이터, 새로운 문제 앞에서 가설을 세우고 답을 찾는 과정을 즐깁니다. 함께 이야기 나누고 싶다면 편하게 연락 주세요.</p>
+        <div class="contact-buttons">
+          <a class="btn btn-ghost" href="mailto:estherkim610@naver.com">Email 보내기</a>
+          <a class="btn btn-ghost" href="https://github.com/dptmej03" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/esther-kim-91a7743a9/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="contact-info">
+          <span>✉ estherkim610@naver.com</span>
+          <span>☎ 010-3413-7347</span>
+          <span>📍 대전광역시 서구 둔산동</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 Esther Kim. Built with care.</footer>
+</div>
+
+<!-- PROJECT MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-close" id="modalClose">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+    </div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const projectsData = [
+  {
+    num: '01',
+    name: '기상 데이터를 활용한 서울 따릉이 이용량 예측',
+    meta: '2025.11.01 – 2025.12.05 · 팀 프로젝트(4인)',
+    type: 'Team',
+    tags: ['R','CSV','Linear Regression'],
+    role: '모델링 및 분석 담당',
+    summary: '2020–2024년 기상 데이터를 활용해 회귀 분석 기반으로 서울 공공자전거 \'따릉이\' 이용량을 예측하는 프로젝트입니다.',
+    did: [
+      '평균기온·강수량·풍속 등 기상 변수 6개로 다중 선형 회귀 모델링',
+      'covid 여부, 주말/공휴일, 계절 등 시간적 파생 변수를 직접 설계해 추가',
+      '다중공선성 방지를 위해 계절 변수 중 겨울을 기준 변수로 제외',
+      '2025년 1–6월 데이터로 예측 및 RMSE 기반 성능 평가'
+    ],
+    result: '기상 변수만 사용했을 때 설명력(R²) 약 54% → 파생 변수 추가 후 약 78%까지 향상. RMSE는 약 21,803건(평균 이용량 대비 오차율 22.4%)을 기록했습니다.',
+    insight: '기상 요인만으로는 설명에 한계가 있었지만, 요일·계절 같은 시간적 변수를 더하니 예측 성능이 크게 개선됐습니다. 다만 선형 모델의 한계로 비선형 관계를 충분히 반영하지 못해 Random Forest·XGBoost 등으로 확장할 필요가 있다고 느꼈습니다.',
+    github: 'https://github.com/dptmej03'
+  },
+  {
+    num: '02',
+    name: '오디오 특성을 활용한 층간소음 분류',
+    meta: '2025.11.24 – 2025.12.22 · 팀 프로젝트(4인)',
+    type: 'Team',
+    tags: ['Python','Audio','XGBoost','Random Forest'],
+    role: '모델링 및 분석 담당',
+    summary: 'AI-Hub 생활환경 소음 데이터를 활용해 음향 특징 기반 머신러닝으로 8종의 층간소음 유형을 분류하는 프로젝트입니다.',
+    did: [
+      'Librosa로 WAV 음원에서 Mel-Spectrogram, STFT 등 음향 특징 추출',
+      'Random Forest·XGBoost 두 모델을 동일 조건에서 학습해 성능 비교',
+      '충격 기반 소음 간 오분류를 줄이기 위해 peak_count, crest, decay_mean, decay_std 등 파생 변수를 직접 설계',
+      'Accuracy·Precision·Recall·F1-score 기준으로 최적 모델 선정'
+    ],
+    result: '기존 11개 음향 특징에 decay 계열 파생 변수를 더해 총 15개 특징으로 확장, 발걸음·망치질·가구 이동 등 충격성 소음 간 오분류를 개선했습니다.',
+    insight: '기존 모델의 오분류 원인을 직접 분석해 새로운 변수를 설계해본 경험이었고, Feature Engineering이 모델 선택만큼 중요하다는 점을 체감했습니다.',
+    github: 'https://github.com/dptmej03'
+  },
+  {
+    num: '03',
+    name: 'YOLO Pose & Mediapipe 기반 실시간 요가 자세 교정',
+    meta: '2025.11.15 – 2025.12.22 · 개인 프로젝트',
+    type: 'Solo',
+    tags: ['Python','Image','YOLO','Roboflow'],
+    role: '이미지 라벨링, 모델 학습, 시스템 구현',
+    summary: 'YOLO Pose와 MediaPipe Pose Landmark Detection을 결합해 웹캠 기반 실시간 요가 자세(견상자세) 인식·교정 시스템을 구현한 프로젝트입니다.',
+    did: [
+      'Kaggle·Roboflow·Google 등에서 견상자세(Downward Dog) 이미지를 정면/좌/우 다양한 시점으로 수집',
+      'Roboflow로 17개 Keypoint 기준 포즈 어노테이션을 직접 라벨링',
+      'Grayscale 변환, 밝기 조절, Blur 등 데이터 증강 적용',
+      'YOLOv11 Pose로 자세 검출, MediaPipe(33개 Landmark)로 실시간 각도 계산 및 교정 로직 구현'
+    ],
+    result: '웹캠 앞에서 실시간으로 자세를 인식하고 각도를 계산해 교정 피드백을 제공하는 시스템을 완성했습니다.',
+    insight: 'Pose keypoint 어노테이션을 직접 수행하며 데이터 구축의 어려움을 체감했고, 좋은 모델은 정확한 어노테이션과 다양한 데이터셋에서 나온다는 것을 깨달았습니다.',
+    github: 'https://github.com/dptmej03'
+  },
+  {
+    num: '04',
+    name: '제주도 응급의료체계 수요·공급 불균형 원인 분석',
+    meta: '2026.06.01 – 2026.06.22 · 개인 프로젝트',
+    type: 'Solo',
+    tags: ['R','CSV','Visualization'],
+    role: '데이터 전처리 및 시각화',
+    summary: '공공데이터를 활용해 제주도 응급의료체계의 수요·공급 불균형 원인을 분석하고, 정책적 개선 방안을 도출한 프로젝트입니다.',
+    did: [
+      '공공데이터포털·국립중앙의료원·제주 열린데이터·한국관광공사 데이터를 수집·정제',
+      '관광객 유입, 응급의료기관 분포, 전문의 수 세 가지 가설을 설정',
+      '지역별 인구수 기준으로 데이터를 표준화하여 지역 간 비교',
+      '가설별 시각화를 통해 응급의료 불균형의 원인을 검증'
+    ],
+    result: '관광객 유입은 일부 기간에만 응급실 수요에 영향을 미쳤고, 응급의료기관과 전문의가 특정 지역에 편중되어 있다는 점을 시각화로 확인했습니다.',
+    insight: '지역 간 비교를 위해서는 인구수 등 기준으로 데이터를 표준화하는 과정이 중요하다는 것을 깨달았습니다.',
+    github: null
+  },
+  {
+    num: '05',
+    name: '뽀모도로 타이머 제작',
+    meta: '2026.01 · 개인 프로젝트',
+    type: 'Solo',
+    tags: ['Vibe Coding','Claude Code'],
+    role: '기획, 구현, 배포',
+    summary: '항상 화면 최상단에 떠 있는 미니 뽀모도로 타이머 + 할일 노트 데스크탑 위젯을 AI 바이브 코딩으로 직접 만든 개인 프로젝트입니다.',
+    did: [
+      '기존 물리 타이머·앱·크롬 확장 프로그램의 한계(눈에 안 띔, 창 전환 시 사라짐, 디자인)를 분석',
+      '어떤 창을 클릭해도 항상 최상단에 고정되는 위젯을 직접 기획',
+      'Claude Code 기반 AI 바이브 코딩으로 타이머 + 할일 노트 기능 구현',
+      '실제 사용 가능한 형태로 배포'
+    ],
+    result: '내 컴퓨터 화면 안에서 항상 최상단에 떠 있는 나만의 뽀모도로 타이머 위젯을 완성해 실제로 사용하고 있습니다.',
+    insight: '배포는 끝이 아니라 시작이며, 실제 사용 이후의 지속적인 개선과 유지보수가 중요하다는 것을 배웠습니다.',
+    github: 'https://github.com/dptmej03'
+  },
+  {
+    num: '06',
+    name: "Let's go zip — 콘텐츠 제작 팀 프로젝트",
+    meta: '팀 프로젝트',
+    type: 'Team',
+    tags: ['Contents Create'],
+    role: '콘텐츠 기획 및 제작',
+    summary: '콘텐츠 기획 및 제작을 중심으로 진행한 팀 프로젝트입니다.',
+    did: [
+      '팀원들과 함께 콘텐츠 방향성 기획',
+      '기획안을 바탕으로 콘텐츠 제작 진행'
+    ],
+    result: '팀 단위 콘텐츠 제작 프로젝트를 완료했습니다.',
+    insight: null,
+    github: null
+  }
+];
+
+const modalOverlay = document.getElementById('modalOverlay');
+const modalContent = document.getElementById('modalContent');
+const modalClose = document.getElementById('modalClose');
+
+function openProjectModal(index){
+  const p = projectsData[index];
+  if(!p) return;
+  modalContent.innerHTML = `
+    <div class="modal-num">${p.num}</div>
+    <div class="modal-title">${p.name}</div>
+    <div class="modal-meta">${p.meta}${p.role ? ' · ' + p.role : ''}</div>
+    <span class="modal-type">${p.type}</span>
+    <div class="modal-tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
+    <div class="modal-section"><h4>Overview</h4><p>${p.summary}</p></div>
+    <div class="modal-section"><h4>What I Did</h4><ul>${p.did.map(d => `<li>${d}</li>`).join('')}</ul></div>
+    <div class="modal-section"><h4>Result</h4><p>${p.result}</p></div>
+    ${p.insight ? `<div class="modal-section"><h4>Insight</h4><p>${p.insight}</p></div>` : ''}
+    ${p.github ? `<a class="modal-link" href="${p.github}" target="_blank" rel="noopener">GitHub 바로가기 →</a>` : ''}
+  `;
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProjectModal(){
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('click', () => openProjectModal(parseInt(card.dataset.project, 10)));
+});
+modalClose.addEventListener('click', closeProjectModal);
+modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeProjectModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProjectModal(); });
+
+// scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('in-view');
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+
+// navbar scroll state
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// mobile nav
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+document.querySelectorAll('.nav-link').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+// magnet-ish portrait tilt
+const portrait = document.getElementById('portrait');
+const heroSection = document.querySelector('.hero');
+heroSection.addEventListener('mousemove', (e) => {
+  const rect = portrait.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const dx = (e.clientX - cx) / 24;
+  const dy = (e.clientY - cy) / 24;
+  const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+  if (dist < 420) {
+    portrait.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx/10}deg)`;
+  } else {
+    portrait.style.transform = 'translate(0,0) rotate(0deg)';
+  }
+});
+heroSection.addEventListener('mouseleave', () => {
+  portrait.style.transform = 'translate(0,0) rotate(0deg)';
+});
+</script>
+</body>
+</html>
