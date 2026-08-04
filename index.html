@@ -248,67 +248,76 @@ ul{list-style:none;}
   background:var(--surface);
   border-radius:56px;
 }
-.skill-cols{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:60px;
+.service-list{margin-top:60px;max-width:900px;margin-left:auto;margin-right:auto;}
+.service-item{
+  display:flex;align-items:flex-start;gap:clamp(20px,5vw,40px);
+  padding:clamp(24px,4vw,40px) 0;border-bottom:1px solid var(--line);
 }
-@media(max-width:860px){.skill-cols{grid-template-columns:1fr;}}
-.skill-card{
-  background:var(--card);
-  border-radius:28px;padding:32px 26px;
-  border:1px solid var(--line);
+.service-item:first-child{border-top:1px solid var(--line);}
+.service-num{
+  font-weight:900;font-size:clamp(2.4rem,6.5vw,4.2rem);color:var(--peach);line-height:0.9;
+  flex:0 0 auto;min-width:80px;
 }
-.skill-card h3{
-  font-size:1.05rem;font-weight:800;text-transform:uppercase;letter-spacing:0.04em;
-  color:var(--deep);margin-bottom:20px;
+.service-body{flex:1;padding-top:6px;}
+.service-name{
+  font-size:clamp(1.1rem,2.4vw,1.5rem);font-weight:800;text-transform:uppercase;
+  letter-spacing:-0.01em;margin-bottom:10px;color:var(--deep);
 }
-.tag-list{display:flex;flex-wrap:wrap;gap:10px;}
-.tag{
-  background:var(--surface);border:1px solid var(--line);border-radius:999px;
-  padding:8px 16px;font-size:0.85rem;font-weight:600;color:var(--text);
-}
+.service-desc{font-size:0.95rem;color:var(--text-soft);line-height:1.7;}
 
-/* ---------- PROJECTS ---------- */
-.projects{padding:120px 0;background:var(--bg);}
-.project-list{margin-top:60px;display:flex;flex-direction:column;gap:26px;}
-.project-card{
+/* ---------- PROJECTS (stacking cards) ---------- */
+.projects{padding:120px 0 40px;background:var(--bg);}
+.stack-wrap{margin-top:70px;}
+.stack-item{position:relative;height:100vh;}
+.stack-item:last-child{height:auto;padding-bottom:20px;}
+.stack-card{
   background:var(--surface);
   border:1px solid var(--line);
-  border-radius:36px;
-  padding:clamp(22px,3.5vw,44px);
-  display:grid;grid-template-columns:90px 1fr;gap:28px;
-  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  border-radius:40px;
+  padding:clamp(24px,4vw,48px);
+  box-shadow:0 20px 50px rgba(156,91,68,0.14);
+  will-change:transform;
   cursor:pointer;
+  transition:box-shadow .3s ease;
+  transform-origin:top center;
+  backface-visibility:hidden;
 }
-.project-card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 26px 50px rgba(156,91,68,0.18);
-  border-color:var(--peach);
+.stack-card:hover{box-shadow:0 26px 60px rgba(156,91,68,0.22);}
+.stack-item:nth-child(1) .stack-card{position:sticky;top:100px;}
+.stack-item:nth-child(2) .stack-card{position:sticky;top:126px;}
+.stack-item:nth-child(3) .stack-card{position:sticky;top:152px;}
+.stack-item:nth-child(4) .stack-card{position:sticky;top:178px;}
+
+.stack-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:28px;}
+.stack-num{font-weight:900;font-size:clamp(2.4rem,6vw,4rem);color:var(--peach);line-height:0.9;margin-bottom:6px;}
+.stack-title{font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;}
+.stack-subtitle{font-size:0.85rem;color:var(--text-soft);font-weight:600;margin-top:6px;}
+.stack-view-btn{
+  border:2px solid var(--deep);color:var(--deep);border-radius:999px;
+  padding:12px 26px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;
+  white-space:nowrap;cursor:pointer;background:transparent;transition:background .2s ease;
 }
-@media(max-width:640px){.project-card{grid-template-columns:1fr;}}
-.project-num{
-  font-weight:900;font-size:clamp(2rem,5vw,3.4rem);color:var(--peach);line-height:1;
+.stack-view-btn:hover{background:rgba(156,91,68,0.08);}
+
+.stack-preview{display:flex;gap:16px;}
+.preview-col-a{width:40%;display:flex;flex-direction:column;gap:16px;}
+.preview-col-b{width:60%;}
+.preview-tile{
+  border-radius:28px;position:relative;overflow:hidden;
+  display:flex;align-items:flex-end;color:#fff;padding:18px;
 }
-.project-top{
-  display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;
-  margin-bottom:14px;
+.preview-tile svg{position:absolute;top:18px;left:18px;opacity:0.9;}
+.preview-tile span{font-size:0.8rem;font-weight:700;position:relative;z-index:1;}
+.preview-col-a .preview-tile:nth-child(1){height:clamp(100px,13vw,170px);}
+.preview-col-a .preview-tile:nth-child(2){height:clamp(130px,17vw,240px);}
+.preview-col-b .preview-tile{height:100%;min-height:clamp(250px,32vw,436px);}
+
+@media(max-width:640px){
+  .stack-item{height:auto;margin-bottom:24px;}
+  .stack-card{position:relative !important;top:0 !important;}
+  .stack-preview{flex-direction:column;}
+  .preview-col-a,.preview-col-b{width:100%;}
 }
-.project-name{font-size:clamp(1.2rem,2.4vw,1.6rem);font-weight:800;letter-spacing:-0.01em;}
-.project-meta{font-size:0.78rem;color:var(--text-soft);font-weight:600;margin-top:4px;}
-.project-type{
-  font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;
-  background:var(--cream);color:var(--deep);border-radius:999px;padding:6px 14px;white-space:nowrap;
-}
-.project-desc{color:var(--text-soft);font-size:0.95rem;line-height:1.65;margin-bottom:16px;max-width:720px;}
-.project-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
-.project-tags span{
-  font-size:0.75rem;font-weight:700;background:var(--bg);border:1px solid var(--line);
-  border-radius:8px;padding:5px 10px;color:var(--deep);
-}
-.project-link{
-  font-size:0.8rem;font-weight:700;color:var(--rose);display:inline-flex;align-items:center;gap:6px;
-}
-.project-link:hover{text-decoration:underline;}
-.project-more{font-size:0.8rem;font-weight:700;color:var(--deep);opacity:0.6;}
 
 /* ---------- PROJECT MODAL ---------- */
 .modal-overlay{
@@ -371,6 +380,28 @@ ul{list-style:none;}
   font-size:0.85rem;font-weight:700;color:#fff;
   background:var(--grad-btn);border-radius:999px;padding:12px 26px;
 }
+.modal-cat-summary{font-size:0.92rem;line-height:1.7;color:var(--text-soft);margin-bottom:26px;}
+.modal-count{
+  font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--rose);margin-bottom:14px;
+}
+.modal-item-list{display:flex;flex-direction:column;gap:14px;}
+.modal-item{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px 22px;}
+.modal-item-num{font-size:0.72rem;font-weight:800;color:var(--peach);margin-bottom:4px;}
+.modal-item-title{font-size:1.02rem;font-weight:800;margin-bottom:4px;line-height:1.4;}
+.modal-item-sub{font-size:0.76rem;color:var(--text-soft);font-weight:600;margin-bottom:10px;}
+.modal-item-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.modal-item-tags span{
+  font-size:0.7rem;font-weight:700;background:var(--surface);border:1px solid var(--line);
+  border-radius:8px;padding:4px 9px;color:var(--deep);
+}
+.modal-item-desc{font-size:0.87rem;line-height:1.65;color:var(--text);margin-bottom:10px;}
+.modal-item-badge{
+  font-size:0.78rem;font-weight:700;color:var(--deep);background:var(--cream);
+  border-radius:10px;padding:8px 12px;display:block;line-height:1.5;margin-bottom:10px;
+}
+.modal-item-link{font-size:0.78rem;font-weight:700;color:var(--rose);}
+.modal-item-link:hover{text-decoration:underline;}
 
 /* ---------- RESUME (embedded in About) ---------- */
 .resume-inline h3.resume-label{
@@ -519,25 +550,26 @@ footer{
     <div class="skills" id="skills">
       <h2 class="section-title reveal" style="color:var(--deep)">Skills</h2>
       <div class="container">
-        <div class="skill-cols">
-          <div class="skill-card reveal">
-            <h3>Programming</h3>
-            <div class="tag-list">
-              <span class="tag">Python</span><span class="tag">R</span><span class="tag">MySQL</span>
+        <div class="service-list">
+          <div class="service-item reveal">
+            <div class="service-num">01</div>
+            <div class="service-body">
+              <div class="service-name">Programming</div>
+              <div class="service-desc">Python, R, MySQL</div>
             </div>
           </div>
-          <div class="skill-card reveal" style="transition-delay:.1s">
-            <h3>Libraries</h3>
-            <div class="tag-list">
-              <span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Librosa</span>
-              <span class="tag">OpenCV</span><span class="tag">ggplot2</span><span class="tag">dplyr</span><span class="tag">Matplotlib</span>
+          <div class="service-item reveal" style="transition-delay:.1s">
+            <div class="service-num">02</div>
+            <div class="service-body">
+              <div class="service-name">Libraries</div>
+              <div class="service-desc">Pandas, NumPy, Librosa, OpenCV, ggplot2, dplyr, Matplotlib</div>
             </div>
           </div>
-          <div class="skill-card reveal" style="transition-delay:.2s">
-            <h3>Tools &amp; Platforms</h3>
-            <div class="tag-list">
-              <span class="tag">VS Code</span><span class="tag">Google Colab</span><span class="tag">Git &amp; GitHub</span>
-              <span class="tag">Railway</span><span class="tag">Vercel</span>
+          <div class="service-item reveal" style="transition-delay:.2s">
+            <div class="service-num">03</div>
+            <div class="service-body">
+              <div class="service-name">Tools &amp; Platforms</div>
+              <div class="service-desc">VS Code, Google Colab, Git &amp; GitHub, Railway, Vercel</div>
             </div>
           </div>
         </div>
@@ -549,101 +581,129 @@ footer{
   <section class="projects" id="projects">
     <div class="container">
       <h2 class="section-title heading-grad reveal">Project</h2>
-      <div class="project-list">
+      <div class="stack-wrap">
 
-        <div class="project-card reveal" data-project="0">
-          <div class="project-num">01</div>
-          <div>
-            <div class="project-top">
+        <div class="stack-item">
+          <div class="stack-card reveal" data-category="0">
+            <div class="stack-top">
               <div>
-                <div class="project-name">기상 데이터를 활용한 서울 따릉이 이용량 예측</div>
-                <div class="project-meta">2025.11.01 – 2025.12.05 · 팀 프로젝트(4인) · 모델링 및 분석 담당</div>
+                <div class="stack-num">01</div>
+                <div class="stack-title">Project</div>
+                <div class="stack-subtitle">데이터 분석 프로젝트 · 2025 – 2026</div>
               </div>
-              <div class="project-type">Team</div>
+              <button class="stack-view-btn" type="button">전체보기</button>
             </div>
-            <p class="project-desc">2020–2024년 기상 데이터를 활용해 회귀 분석 기반으로 서울 공공자전거 '따릉이' 이용량을 예측. 시간적 파생 변수(계절·공휴일 등)를 추가해 설명력을 54%에서 78%까지 끌어올렸습니다.</p>
-            <div class="project-tags"><span>R</span><span>CSV</span><span>Linear Regression</span></div>
-            <span class="project-more">자세히 보기 →</span>
+            <div class="stack-preview">
+              <div class="preview-col-a">
+                <div class="preview-tile" style="background:linear-gradient(135deg,#DD7D5D,#A2543C);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="4" y1="20" x2="4" y2="10"/><line x1="10" y1="20" x2="10" y2="4"/><line x1="16" y1="20" x2="16" y2="14"/><line x1="21" y1="20" x2="3" y2="20"/></svg>
+                  <span>Analysis</span>
+                </div>
+                <div class="preview-tile" style="background:linear-gradient(135deg,#EFA483,#C97B63);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+                  <span>Modeling</span>
+                </div>
+              </div>
+              <div class="preview-col-b">
+                <div class="preview-tile" style="background:linear-gradient(150deg,#9C5B44,#3B2A22);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 19V5a2 2 0 012-2h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M14 3v5h5"/></svg>
+                  <span>6 Projects</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="project-card reveal" data-project="1">
-          <div class="project-num">02</div>
-          <div>
-            <div class="project-top">
+        <div class="stack-item">
+          <div class="stack-card reveal" data-category="1">
+            <div class="stack-top">
               <div>
-                <div class="project-name">오디오 특성을 활용한 층간소음 분류</div>
-                <div class="project-meta">2025.11.24 – 2025.12.22 · 팀 프로젝트(4인) · 모델링 및 분석 담당</div>
+                <div class="stack-num">02</div>
+                <div class="stack-title">Training &amp; Global Experience</div>
+                <div class="stack-subtitle">교육 · 글로벌 경험 · 2024 – 2025</div>
               </div>
-              <div class="project-type">Team</div>
+              <button class="stack-view-btn" type="button">전체보기</button>
             </div>
-            <p class="project-desc">AI-Hub 생활환경 소음 데이터를 Librosa로 특징 추출 후 Random Forest·XGBoost로 8종의 층간소음을 분류. 충격 감쇠 기반 파생 변수(decay_mean 등)를 설계해 모델 성능을 개선했습니다.</p>
-            <div class="project-tags"><span>Python</span><span>Audio</span><span>XGBoost</span><span>Random Forest</span></div>
-            <span class="project-more">자세히 보기 →</span>
+            <div class="stack-preview">
+              <div class="preview-col-a">
+                <div class="preview-tile" style="background:linear-gradient(135deg,#E9A17F,#B9755C);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M2 8l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+                  <span>ESL</span>
+                </div>
+                <div class="preview-tile" style="background:linear-gradient(135deg,#F3B79A,#DD7D5D);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+                  <span>SQL</span>
+                </div>
+              </div>
+              <div class="preview-col-b">
+                <div class="preview-tile" style="background:linear-gradient(150deg,#C97B63,#3B2A22);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+                  <span>Digital Marketing</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="project-card reveal" data-project="2">
-          <div class="project-num">03</div>
-          <div>
-            <div class="project-top">
+        <div class="stack-item">
+          <div class="stack-card reveal" data-category="2">
+            <div class="stack-top">
               <div>
-                <div class="project-name">YOLO Pose &amp; Mediapipe 기반 실시간 요가 자세 교정</div>
-                <div class="project-meta">2025.11.15 – 2025.12.22 · 개인 프로젝트 · 라벨링 및 모델 학습, 시스템 구현</div>
+                <div class="stack-num">03</div>
+                <div class="stack-title">Activities</div>
+                <div class="stack-subtitle">대외활동 · 2024 – 2025</div>
               </div>
-              <div class="project-type">Solo</div>
+              <button class="stack-view-btn" type="button">전체보기</button>
             </div>
-            <p class="project-desc">YOLOv11 Pose와 MediaPipe Landmark를 결합해 웹캠 기반 실시간 요가 자세(견상자세) 인식 및 교정 시스템을 구현. Roboflow로 직접 키포인트를 라벨링하며 데이터 품질의 중요성을 체감했습니다.</p>
-            <div class="project-tags"><span>Python</span><span>Image</span><span>YOLO</span><span>Roboflow</span></div>
-            <span class="project-more">자세히 보기 →</span>
+            <div class="stack-preview">
+              <div class="preview-col-a">
+                <div class="preview-tile" style="background:linear-gradient(135deg,#F3B79A,#E38B72);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 11v2a2 2 0 002 2h1l3 5V4L6 9H5a2 2 0 00-2 2z"/><path d="M14 8a4 4 0 010 8"/><path d="M17 5a8 8 0 010 14"/></svg>
+                  <span>Supporters</span>
+                </div>
+                <div class="preview-tile" style="background:linear-gradient(135deg,#E38B72,#B9755C);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M8 14h3"/></svg>
+                  <span>Market Research</span>
+                </div>
+              </div>
+              <div class="preview-col-b">
+                <div class="preview-tile" style="background:linear-gradient(150deg,#9C5B44,#3B2A22);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                  <span>Community</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="project-card reveal" data-project="3">
-          <div class="project-num">04</div>
-          <div>
-            <div class="project-top">
+        <div class="stack-item">
+          <div class="stack-card reveal" data-category="3">
+            <div class="stack-top">
               <div>
-                <div class="project-name">제주도 응급의료체계 수요·공급 불균형 원인 분석</div>
-                <div class="project-meta">2026.06.01 – 2026.06.22 · 개인 프로젝트 · 데이터 전처리 및 시각화</div>
+                <div class="stack-num">04</div>
+                <div class="stack-title">Volunteer</div>
+                <div class="stack-subtitle">봉사활동 · 2024 – 2025</div>
               </div>
-              <div class="project-type">Solo</div>
+              <button class="stack-view-btn" type="button">전체보기</button>
             </div>
-            <p class="project-desc">공공데이터를 활용해 제주도 응급의료 수요·공급 불균형의 원인을 가설 기반으로 검증하고, 데이터 시각화를 통해 정책적 개선 방안을 도출했습니다.</p>
-            <div class="project-tags"><span>R</span><span>CSV</span><span>Visualization</span></div>
-            <span class="project-more">자세히 보기 →</span>
-          </div>
-        </div>
-
-        <div class="project-card reveal" data-project="4">
-          <div class="project-num">05</div>
-          <div>
-            <div class="project-top">
-              <div>
-                <div class="project-name">뽀모도로 타이머 제작</div>
-                <div class="project-meta">2026.01 · 개인 프로젝트 · 기획, 구현, 배포</div>
+            <div class="stack-preview">
+              <div class="preview-col-a">
+                <div class="preview-tile" style="background:linear-gradient(135deg,#B9755C,#8A5A44);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C1 9 2.5 5 6.5 5c2 0 3.5 1.5 4.5 3 1-1.5 2.5-3 4.5-3 4 0 5.5 4 4 7.5C19 16.65 12 21 12 21z"/></svg>
+                  <span>UCLG</span>
+                </div>
+                <div class="preview-tile" style="background:linear-gradient(135deg,#C97B63,#9C5B44);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  <span>Care Center</span>
+                </div>
               </div>
-              <div class="project-type">Solo</div>
-            </div>
-            <p class="project-desc">항상 화면 최상단에 떠 있는 미니 뽀모도로 타이머 + 할일 노트 데스크탑 위젯을 AI 바이브 코딩으로 직접 기획·구현·배포했습니다.</p>
-            <div class="project-tags"><span>Vibe Coding</span><span>Claude Code</span></div>
-            <span class="project-more">자세히 보기 →</span>
-          </div>
-        </div>
-
-        <div class="project-card reveal" data-project="5">
-          <div class="project-num">06</div>
-          <div>
-            <div class="project-top">
-              <div>
-                <div class="project-name">Let's go zip — 콘텐츠 제작 팀 프로젝트</div>
-                <div class="project-meta">팀 프로젝트 · 콘텐츠 기획 및 제작</div>
+              <div class="preview-col-b">
+                <div class="preview-tile" style="background:linear-gradient(150deg,#8A5A44,#3B2A22);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M8 3v4M16 3v4"/><rect x="3" y="6" width="18" height="15" rx="2"/><path d="M3 11h18"/></svg>
+                  <span>Volunteer Log</span>
+                </div>
               </div>
-              <div class="project-type">Team</div>
             </div>
-            <p class="project-desc">콘텐츠 기획 및 제작을 중심으로 진행한 팀 프로젝트입니다.</p>
-            <div class="project-tags"><span>Contents Create</span></div>
-            <span class="project-more">자세히 보기 →</span>
           </div>
         </div>
 
@@ -794,24 +854,89 @@ const projectsData = [
   }
 ];
 
+const categoriesData = [
+  {
+    num: '01',
+    title: 'Project',
+    subtitle: '데이터 분석 프로젝트',
+    period: '2025 – 2026',
+    summary: '학회·공모전을 제외한 데이터 분석 프로젝트 6건입니다. 기상·오디오·이미지 등 다양한 데이터를 다루며 가설 검증부터 모델링까지 직접 수행했습니다.',
+    useProjectsData: true
+  },
+  {
+    num: '02',
+    title: 'Training & Global Experience',
+    subtitle: '교육 · 글로벌 경험',
+    period: '2024 – 2025',
+    summary: '실무 역량을 쌓기 위해 참여한 교육 프로그램과 해외 어학 연수입니다.',
+    items: [
+      { title: '괌 ESL 프로그램 수료', tags: ['English'], desc: '괌에서 진행된 ESL(영어 집중교육) 프로그램을 수료하며 실전 영어 커뮤니케이션 역량을 길렀습니다.' },
+      { title: '데이터리안 SQL 데이터 분석 캠프 입문반', tags: ['SQL'], desc: 'SQL 기초 문법과 데이터 분석을 위한 쿼리 작성법을 학습했습니다.' },
+      { title: '데이터리안 SQL 데이터 분석 캠프 실전반', tags: ['SQL'], desc: '실전 데이터셋을 활용해 복잡한 조건의 SQL 쿼리를 작성하고 분석하는 과정을 수료했습니다.' },
+      { title: '예비 마케터를 위한 디지털 마케팅 실무 과정', tags: ['GTM','GA'], desc: 'GTM(Google Tag Manager)과 GA(Google Analytics)를 활용한 디지털 마케팅 실무 과정을 이수했습니다.' }
+    ]
+  },
+  {
+    num: '03',
+    title: 'Activities',
+    subtitle: '대외활동',
+    period: '2024 – 2025',
+    summary: '데이터 분야 서포터즈 활동과 마켓리서치 프로젝트에 참여했습니다.',
+    items: [
+      { title: "데이터안심구역 서포터즈 '가디언즈오브데이터' 2기", tags: ['SNS 콘텐츠 제작'], desc: '데이터산업진흥원이 주관하는 데이터안심구역을 알리는 SNS 콘텐츠를 기획·제작하는 서포터즈 활동을 수행했습니다.' },
+      { title: '미래내일일경험 우체국쇼핑 마켓리서치', tags: ['리더십','자동화 도구 제작'], desc: '마켓리서치를 통해 신규 인기 상품을 발굴하고, 조사 과정을 효율화하는 자동화 도구를 직접 제작했습니다.' }
+    ]
+  },
+  {
+    num: '04',
+    title: 'Volunteer',
+    subtitle: '봉사활동',
+    period: '2024 – 2025',
+    summary: '지역사회와 디지털 취약계층을 위한 봉사활동에 참여했습니다.',
+    items: [
+      { title: 'UCLG 대전시 세계지방정부연합 총회 봉사', tags: ['행사 지원'], desc: '대전에서 개최된 UCLG(세계지방정부연합) 총회에서 행사 운영을 지원했습니다.' },
+      { title: '늘평안데이케어센터 디지털 인지교육 훈련 봉사', tags: ['디지털 교육'], desc: '데이케어센터 어르신들을 대상으로 디지털 인지교육 훈련을 지원하는 봉사활동을 수행했습니다.' }
+    ]
+  }
+];
+
 const modalOverlay = document.getElementById('modalOverlay');
 const modalContent = document.getElementById('modalContent');
 const modalClose = document.getElementById('modalClose');
 
-function openProjectModal(index){
-  const p = projectsData[index];
-  if(!p) return;
+function openCategoryModal(catIndex){
+  const cat = categoriesData[catIndex];
+  if(!cat) return;
+  let itemsHtml = '';
+  if(cat.useProjectsData){
+    itemsHtml = projectsData.map(p => `
+      <div class="modal-item">
+        <div class="modal-item-num">${p.num}</div>
+        <div class="modal-item-title">${p.name}</div>
+        <div class="modal-item-sub">${p.meta}${p.role ? ' · ' + p.role : ''}</div>
+        <div class="modal-item-tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
+        <div class="modal-item-desc">${p.summary}</div>
+        ${p.result ? `<div class="modal-item-badge">🏆 ${p.result}</div>` : ''}
+        ${p.github ? `<a class="modal-item-link" href="${p.github}" target="_blank" rel="noopener">GitHub 바로가기 →</a>` : ''}
+      </div>
+    `).join('');
+  } else {
+    itemsHtml = cat.items.map((it, i) => `
+      <div class="modal-item">
+        <div class="modal-item-num">${String(i + 1).padStart(2, '0')}</div>
+        <div class="modal-item-title">${it.title}</div>
+        <div class="modal-item-tags">${it.tags.map(t => `<span>${t}</span>`).join('')}</div>
+        <div class="modal-item-desc">${it.desc}</div>
+      </div>
+    `).join('');
+  }
   modalContent.innerHTML = `
-    <div class="modal-num">${p.num}</div>
-    <div class="modal-title">${p.name}</div>
-    <div class="modal-meta">${p.meta}${p.role ? ' · ' + p.role : ''}</div>
-    <span class="modal-type">${p.type}</span>
-    <div class="modal-tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
-    <div class="modal-section"><h4>Overview</h4><p>${p.summary}</p></div>
-    <div class="modal-section"><h4>What I Did</h4><ul>${p.did.map(d => `<li>${d}</li>`).join('')}</ul></div>
-    <div class="modal-section"><h4>Result</h4><p>${p.result}</p></div>
-    ${p.insight ? `<div class="modal-section"><h4>Insight</h4><p>${p.insight}</p></div>` : ''}
-    ${p.github ? `<a class="modal-link" href="${p.github}" target="_blank" rel="noopener">GitHub 바로가기 →</a>` : ''}
+    <div class="modal-num">${cat.num}</div>
+    <div class="modal-title">${cat.title}</div>
+    <div class="modal-meta">${cat.subtitle} · ${cat.period}</div>
+    <div class="modal-cat-summary">${cat.summary}</div>
+    <div class="modal-count">Items · ${cat.useProjectsData ? projectsData.length : cat.items.length}</div>
+    <div class="modal-item-list">${itemsHtml}</div>
   `;
   modalOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -822,12 +947,44 @@ function closeProjectModal(){
   document.body.style.overflow = '';
 }
 
-document.querySelectorAll('.project-card').forEach(card => {
-  card.addEventListener('click', () => openProjectModal(parseInt(card.dataset.project, 10)));
+document.querySelectorAll('.stack-card').forEach(card => {
+  card.addEventListener('click', () => openCategoryModal(parseInt(card.dataset.category, 10)));
 });
 modalClose.addEventListener('click', closeProjectModal);
 modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeProjectModal(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProjectModal(); });
+
+// scroll-driven card stacking effect: each card tilts in from below (3D flip),
+// then flattens and locks into its sticky slot while the next card covers it.
+function updateStack(){
+  const items = Array.from(document.querySelectorAll('.stack-item'));
+  const cards = items.map(it => it.querySelector('.stack-card'));
+  const vh = window.innerHeight;
+
+  const inProgs = items.map((item, i) => {
+    const card = cards[i];
+    if (!card) return 1;
+    const rect = item.getBoundingClientRect();
+    const stickyTop = parseFloat(getComputedStyle(card).top) || 0;
+    const raw = (vh - rect.top) / Math.max(vh - stickyTop, 1);
+    return Math.min(Math.max(raw, 0), 1);
+  });
+
+  cards.forEach((card, i) => {
+    if (!card) return;
+    const inProg = inProgs[i];
+    const tilt = (1 - inProg) * 8;
+    const ty = (1 - inProg) * 70;
+    const nextProg = inProgs[i + 1] || 0;
+    const coverScale = 1 - nextProg * 0.05;
+    const coverDim = 1 - nextProg * 0.18;
+    card.style.transform = `perspective(1400px) rotateX(${tilt}deg) translateY(${ty}px) scale(${coverScale})`;
+    card.style.filter = `brightness(${coverDim})`;
+  });
+}
+window.addEventListener('scroll', updateStack, { passive: true });
+window.addEventListener('resize', updateStack);
+updateStack();
 
 // scroll reveal
 const revealEls = document.querySelectorAll('.reveal');
